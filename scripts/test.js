@@ -132,11 +132,38 @@ if (existsSync(distIndex)) {
 
   for (const p of politiciensAvecAffaires.slice(0, 5)) {
     const pagePath = resolve(root, 'dist', 'politique', p.slug, 'index.html');
-    assert(`Fiche générée pour "${p.prenom} ${p.nom}"`, existsSync(pagePath), pagePath);
+    const found = existsSync(pagePath);
+    assert(`Fiche politique générée pour "${p.prenom} ${p.nom}"`, found, pagePath);
+    if (found) {
+      const pageHtml = rfs(pagePath, 'utf-8');
+      assert(`Titre dans la fiche de "${p.prenom} ${p.nom}"`, pageHtml.includes(p.nom), `manque "${p.nom}"`);
+    }
+  }
+
+  // 11. Fiches affaire
+  console.log('\n11. Fiches affaire :');
+  for (const a of affaires.slice(0, 10)) {
+    const pagePath = resolve(root, 'dist', 'affaire', a.slug, 'index.html');
+    const found = existsSync(pagePath);
+    assert(`Fiche affaire générée pour "${a.titre.slice(0, 50)}"`, found, a.slug);
+    if (found) {
+      const pageHtml = rfs(pagePath, 'utf-8');
+      assert(`Titre présent dans la fiche affaire`, pageHtml.includes('Résumé') || pageHtml.includes('Chronologie'), a.slug);
+    }
   }
 } else {
   console.log('  (dist/ non trouvé — lance npm run build pour tester la génération)');
 }
+
+// 12. Vérification des slugs politicienSlug dans les affaires
+console.log('\n12. Références politicienSlug dans les affaires :');
+const slugsPol = new Set(politiques.map(p => p.slug));
+let refsOk = 0, refsKo = 0;
+for (const a of affaires) {
+  if (slugsPol.has(a.politicienSlug)) refsOk++;
+  else refsKo++;
+}
+assert('politicienSlug valide pour toutes les affaires', refsKo === 0, `${refsOk} OK, ${refsKo} invalides`);
 
 // Résumé
 console.log(`\n=== Résultat : ${passed} réussis, ${failed} échoués ===\n`);
