@@ -1,42 +1,43 @@
 poligraphId,Slug,Civilité,Prénom,Nom,Nom complet,Genre,Date de naissance,Lieu de naissance,Date de décès,poligraphId parti,Parti (abrégé),Parti,Position politique,Mandat actuel,Titre du mandat,Début du mandat,Fin du mandat,Circonscription,Code département,Nombre d'affaires,Fact-checks (mentions),Score de prominence,Wikidata Q-ID,Photo,Profil Poligraph,Créé le,Mis à jour le
 PG-001511,jean-luc-melenchon,M.,Jean-Luc,Mélenchon,Jean-Luc Mélenchon,M,1951-08-19,Tanger,,,LFI,La France insoumise,Gauche radicale,Candidat,Candidat à la présidentielle 2027,,,,,0,0,0,Q5829,,https://poligraph.fr/politiques/jean-luc-melenchon,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
 PG-CAND-001,valerie-pecresse,Mme,Valérie,Pécresse,Valérie Pécresse,F,1967-07-14,Neuilly-sur-Seine,,,LR,Les Républicains,Droite,Candidat,Candidate à la présidentielle 2027,,,,,0,0,0,Q465987,,https://poligraph.fr/politiques/valerie-pecresse,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-001708,damien-abad,,Damien,Abad,Damien Abad,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000988,rachida-dati,,Rachida,Dati,Rachida Dati,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000019,eric-woerth,,Éric,Woerth,Éric Woerth,,,,,,,RE,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000578,nicolas-sarkozy,,Nicolas,Sarkozy,Nicolas Sarkozy,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000594,adrien-quatennens,,Adrien,Quatennens,Adrien Quatennens,,,,,,,LFI,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-001655,jean-vincent-place,,Jean-Vincent,Placé,Jean-Vincent Placé,,,,,,,PRG,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000623,jean-marie-le-pen,,Jean-Marie Le,Pen,Jean-Marie Le Pen,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000999,patricia-miralles,,Patricia,Mirallès,Patricia Mirallès,,,,,,,RE,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-001431,jean-yves-le-drian,,Jean-Yves Le,Drian,Jean-Yves Le Drian,,,,,,,TDP,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-001679,olivier-dussopt,,Olivier,Dussopt,Olivier Dussopt,,,,,,,TDP,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000620,jacques-chirac,,Jacques,Chirac,Jacques Chirac,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000627,alain-carignon,,Alain,Carignon,Alain Carignon,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-001087,marc-joulaud,,Marc,Joulaud,Marc Joulaud,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000633,jean-tiberi,,Jean,Tiberi,Jean Tiberi,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000632,jean-christophe-cambadelis,,Jean-Christophe,Cambadélis,Jean-Christophe Cambadélis,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000629,claude-pradille,,Claude,Pradille,Claude Pradille,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000628,patrick-balkany,,Patrick,Balkany,Patrick Balkany,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000624,alain-juppe,,Alain,Juppé,Alain Juppé,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000621,jacques-masdeu-arus,,Jacques,Masdeu-Arus,Jacques Masdeu-Arus,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000603,francois-leotard,,François,Léotard,François Léotard,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000616,sylvie-andrieux,,Sylvie,Andrieux,Sylvie Andrieux,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000600,claude-gueant,,Claude,Guéant,Claude Guéant,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000615,jerome-cahuzac,,Jérôme,Cahuzac,Jérôme Cahuzac,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000614,jean-michel-boucheron,,Jean-Michel,Boucheron,Jean-Michel Boucheron,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000610,stephane-trompille,,Stéphane,Trompille,Stéphane Trompille,,,,,,,RE,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000608,jean-francois-jalkh,,Jean-François,Jalkh,Jean-François Jalkh,,,,,,,RN,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000605,jean-noel-guerini,,Jean-Noël,Guérini,Jean-Noël Guérini,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000604,georges-tron,,Georges,Tron,Georges Tron,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000601,michel-fanget,,Michel,Fanget,Michel Fanget,,,,,,,MoDem,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000599,benoit-simian,,Benoît,Simian,Benoît Simian,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000598,joelle-garriaud-maylam,,Joëlle,Garriaud-Maylam,Joëlle Garriaud-Maylam,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000596,m-jid-el-guerrab,,M'jid El,Guerrab,M'jid El Guerrab,,,,,,,MR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000590,l-titia-avia,,Lætitia,Avia,Lætitia Avia,,,,,,,RE,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000587,philippe-doucet,,Philippe,Doucet,Philippe Doucet,,,,,,,PS,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000585,marie-christine-arnautu,,Marie-Christine,Arnautu,Marie-Christine Arnautu,,,,,,,RN,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000584,marie-christine-boutonnet,,Marie-Christine,Boutonnet,Marie-Christine Boutonnet,,,,,,,,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000583,dominique-bilde,,Dominique,Bilde,Dominique Bilde,,,,,,,RN,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000582,mylene-troszczynski,,Mylène,Troszczynski,Mylène Troszczynski,,,,,,,RN,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
-PG-000579,brice-hortefeux,,Brice,Hortefeux,Brice Hortefeux,,,,,,,LR,,,Ancien élu,Ancien mandat,,,,,,0,0,0,,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-001708,damien-abad,,Damien,Abad,Damien Abad,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000988,rachida-dati,,Rachida,Dati,Rachida Dati,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000019,eric-woerth,,Éric,Woerth,Éric Woerth,,,,,,RE,Renaissance,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000578,nicolas-sarkozy,,Nicolas,Sarkozy,Nicolas Sarkozy,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000594,adrien-quatennens,,Adrien,Quatennens,Adrien Quatennens,,,,,,LFI,La France insoumise,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-001655,jean-vincent-place,,Jean-Vincent,Placé,Jean-Vincent Placé,,,,,,PRG,Parti radical de gauche,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000623,jean-marie-le-pen,,Jean-Marie Le,Pen,Jean-Marie Le Pen,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000999,patricia-miralles,,Patricia,Mirallès,Patricia Mirallès,,,,,,RE,Renaissance,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-001511,jean-luc-melenchon,,Jean-Luc,Mélenchon,Jean-Luc Mélenchon,,,,,,LFI,La France insoumise,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-001431,jean-yves-le-drian,,Jean-Yves Le,Drian,Jean-Yves Le Drian,,,,,,TDP,Territoires de progrès,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-001679,olivier-dussopt,,Olivier,Dussopt,Olivier Dussopt,,,,,,TDP,Territoires de progrès,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000620,jacques-chirac,,Jacques,Chirac,Jacques Chirac,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000627,alain-carignon,,Alain,Carignon,Alain Carignon,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-001087,marc-joulaud,,Marc,Joulaud,Marc Joulaud,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000633,jean-tiberi,,Jean,Tiberi,Jean Tiberi,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000632,jean-christophe-cambadelis,,Jean-Christophe,Cambadélis,Jean-Christophe Cambadélis,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000629,claude-pradille,,Claude,Pradille,Claude Pradille,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000628,patrick-balkany,,Patrick,Balkany,Patrick Balkany,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000624,alain-juppe,,Alain,Juppé,Alain Juppé,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000621,jacques-masdeu-arus,,Jacques,Masdeu-Arus,Jacques Masdeu-Arus,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000603,francois-leotard,,François,Léotard,François Léotard,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000616,sylvie-andrieux,,Sylvie,Andrieux,Sylvie Andrieux,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000600,claude-gueant,,Claude,Guéant,Claude Guéant,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000615,jerome-cahuzac,,Jérôme,Cahuzac,Jérôme Cahuzac,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000614,jean-michel-boucheron,,Jean-Michel,Boucheron,Jean-Michel Boucheron,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000610,stephane-trompille,,Stéphane,Trompille,Stéphane Trompille,,,,,,RE,Renaissance,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000608,jean-francois-jalkh,,Jean-François,Jalkh,Jean-François Jalkh,,,,,,RN,Rassemblement National,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000605,jean-noel-guerini,,Jean-Noël,Guérini,Jean-Noël Guérini,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000604,georges-tron,,Georges,Tron,Georges Tron,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000601,michel-fanget,,Michel,Fanget,Michel Fanget,,,,,,MoDem,Mouvement démocrate,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000599,benoit-simian,,Benoît,Simian,Benoît Simian,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000598,joelle-garriaud-maylam,,Joëlle,Garriaud-Maylam,Joëlle Garriaud-Maylam,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000596,m-jid-el-guerrab,,M'jid El,Guerrab,M'jid El Guerrab,,,,,,MR,Mouvement radical,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000590,l-titia-avia,,Lætitia,Avia,Lætitia Avia,,,,,,RE,Renaissance,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000587,philippe-doucet,,Philippe,Doucet,Philippe Doucet,,,,,,PS,Parti socialiste,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000585,marie-christine-arnautu,,Marie-Christine,Arnautu,Marie-Christine Arnautu,,,,,,RN,Rassemblement National,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000584,marie-christine-boutonnet,,Marie-Christine,Boutonnet,Marie-Christine Boutonnet,,,,,,,,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000583,dominique-bilde,,Dominique,Bilde,Dominique Bilde,,,,,,RN,Rassemblement National,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000582,mylene-troszczynski,,Mylène,Troszczynski,Mylène Troszczynski,,,,,,RN,Rassemblement National,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
+PG-000579,brice-hortefeux,,Brice,Hortefeux,Brice Hortefeux,,,,,,LR,Les Républicains,,Ancien élu,Ancien mandat,,,,,0,0,0,,,,2026-06-19T00:00:00.000Z,2026-06-19T00:00:00.000Z
