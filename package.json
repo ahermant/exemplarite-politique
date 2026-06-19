@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "convert": "node scripts/convert-csv-to-json.js",
     "fetch": "node scripts/fetch-data.js",
-    "refresh": "npm run fetch && npm run convert && npm run build"
+    "test": "node scripts/test.js",
+    "refresh": "npm run fetch && npm run convert && npm test && npm run build"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
