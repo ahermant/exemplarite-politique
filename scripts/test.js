@@ -102,6 +102,42 @@ for (const slug of candidats) {
   assert(`Candidat "${slug}" présent`, !!found, found ? `${found.prenom} ${found.nom}` : 'absent');
 }
 
+// 10. Vérification des fiches (slugs valides + pages générées)
+console.log('\n10. Fiches politiques :');
+const politiciensAvecAffaires = politiques.filter(p => {
+  const affairesDirect = affaires.filter(a => a.politicienId === p.id && a.implicationCode === 'DIRECT');
+  return affairesDirect.length > 0;
+});
+assert('Politiciens avec affaires DIRECT > 0', politiciensAvecAffaires.length > 0, `${politiciensAvecAffaires.length} trouvés`);
+
+for (const p of politiciensAvecAffaires.slice(0, 20)) {
+  assert(`Slug valide pour "${p.prenom} ${p.nom}"`, !!p.slug && /^[a-z0-9-]+$/.test(p.slug), p.slug);
+}
+
+// Vérifier les slugs d'affaires
+let affairesSlugOk = 0, affairesSlugKo = 0;
+for (const a of affaires) {
+  if (a.slug && /^[a-z0-9-]+$/.test(a.slug)) affairesSlugOk++;
+  else affairesSlugKo++;
+}
+assert('Slugs d\'affaires valides', affairesSlugKo === 0, `${affairesSlugOk} OK, ${affairesSlugKo} invalides`);
+
+// Vérifier la génération côté serveur (si dist/ existe)
+import { existsSync, readFileSync as rfs } from 'fs';
+const distIndex = resolve(root, 'dist', 'index.html');
+if (existsSync(distIndex)) {
+  const html = rfs(distIndex, 'utf-8');
+  assert('index.html contient "Exemplarité politique"', html.includes('Exemplarité politique'));
+  assert('index.html contient des cartes élu', html.includes('card') && html.includes('font-semibold'));
+
+  for (const p of politiciensAvecAffaires.slice(0, 5)) {
+    const pagePath = resolve(root, 'dist', 'politique', p.slug, 'index.html');
+    assert(`Fiche générée pour "${p.prenom} ${p.nom}"`, existsSync(pagePath), pagePath);
+  }
+} else {
+  console.log('  (dist/ non trouvé — lance npm run build pour tester la génération)');
+}
+
 // Résumé
 console.log(`\n=== Résultat : ${passed} réussis, ${failed} échoués ===\n`);
 process.exit(failed > 0 ? 1 : 0);
