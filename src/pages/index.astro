@@ -1,0 +1,224 @@
+---
+import Layout from '../components/Layout.astro';
+import StatsCards from '../components/StatsCards.astro';
+import PoliticianCard from '../components/PoliticianCard.astro';
+import { getPoliticiens, getStatsGlobales, getTousLesPartis } from '../lib/data';
+import type { Politicien } from '../lib/types';
+
+const stats = getStatsGlobales();
+const tousLesPoliticiens = getPoliticiens();
+const partis = getTousLesPartis();
+
+const politiciensAvecAffaires = tousLesPoliticiens
+  .filter(p => p.nbAffaires > 0)
+  .sort((a, b) => b.nbAffaires - a.nbAffaires);
+
+const searchIndex = tousLesPoliticiens
+  .filter(p => p.parti)
+  .map(p => ({
+    id: p.id,
+    slug: p.slug,
+    prenom: p.prenom,
+    nom: p.nom,
+    parti: p.parti,
+    nbAffaires: p.nbAffaires,
+    nbEnquetes: p.nbEnquetes,
+    nbInculpations: p.nbInculpations,
+    nbCondamnations: p.nbCondamnations,
+  }));
+---
+
+<Layout
+  title="Accueil"
+  description="Suivi citoyen des plaintes, mises en examen et condamnations des élus français. Transparence démocratique par les données publiques."
+>
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="bg-white border-b border-zinc-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div class="max-w-2xl">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-900 text-balance">
+            Exemplarité politique
+          </h1>
+          <p class="mt-4 text-lg text-zinc-500 text-balance">
+            Suivi citoyen des enquêtes, mises en examen et condamnations des élus
+            français en activité. Données issues de sources publiques.
+          </p>
+        </div>
+        <div class="mt-8">
+          <StatsCards {stats} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters & Search -->
+    <section class="sticky top-16 z-40 bg-zinc-50/90 backdrop-blur-sm border-b border-zinc-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="flex-1 relative">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input
+              type="text"
+              id="search"
+              placeholder="Rechercher un élu..."
+              class="input pl-10"
+              autocomplete="off"
+            />
+          </div>
+          <select id="filter-parti" class="select sm:w-48">
+            <option value="">Tous les partis</option>
+            {partis.map(p => <option value={p}>{p}</option>)}
+          </select>
+          <select id="filter-sort" class="select sm:w-48">
+            <option value="affaires">Plus d'affaires</option>
+            <option value="condamnations">Plus de condamnations</option>
+            <option value="inculpations">Plus de mises en examen</option>
+            <option value="enquetes">Plus d'enquêtes</option>
+            <option value="nom">Ordre alphabétique</option>
+          </select>
+          <select id="filter-implication" class="select sm:w-48">
+            <option value="mis-en-cause">Mis en cause</option>
+            <option value="non-mis-en-cause">Non mis en cause</option>
+            <option value="tous">Tous les élus</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div id="results-count" class="mb-4 text-sm text-zinc-500">
+        {politiciensAvecAffaires.length} élu{politiciensAvecAffaires.length > 1 ? 's' : ''} avec affaire{politiciensAvecAffaires.length > 1 ? 's' : ''}
+      </div>
+      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {politiciensAvecAffaires.map(p => <PoliticianCard politicien={p} />)}
+      </div>
+      <div id="no-results" class="hidden text-center py-16">
+        <p class="text-zinc-400 text-lg">Aucun résultat trouvé.</p>
+      </div>
+    </section>
+  </main>
+
+  <script define:vars={{ searchIndex }}>
+    const grid = document.getElementById('grid');
+    const noResults = document.getElementById('no-results');
+    const resultsCount = document.getElementById('results-count');
+    const searchInput = document.getElementById('search');
+    const filterParti = document.getElementById('filter-parti');
+    const filterSort = document.getElementById('filter-sort');
+    const filterImplication = document.getElementById('filter-implication');
+
+    function getParams() {
+      const p = new URLSearchParams(location.search);
+      return { q: p.get('q') || '', parti: p.get('parti') || '', sort: p.get('sort') || 'affaires', impl: p.get('impl') || 'mis-en-cause' };
+    }
+
+    function setParams(q, parti, sort, impl) {
+      const p = new URLSearchParams();
+      if (q) p.set('q', q);
+      if (parti) p.set('parti', parti);
+      if (sort && sort !== 'affaires') p.set('sort', sort);
+      if (impl && impl !== 'mis-en-cause') p.set('impl', impl);
+      const url = p.toString() ? '?' + p.toString() : location.pathname;
+      history.replaceState(null, '', url);
+    }
+
+    function updateFilters() {
+      const { q, parti, sort, impl } = getParams();
+      searchInput.value = q;
+      filterParti.value = parti;
+      filterSort.value = sort;
+      filterImplication.value = impl;
+    }
+
+    function render() {
+      const q = searchInput.value.toLowerCase();
+      const parti = filterParti.value;
+      const sort = filterSort.value;
+      const impl = filterImplication.value;
+
+      setParams(searchInput.value.trim(), parti, sort, impl);
+
+      let filtered = searchIndex.filter(p => {
+        if (parti && p.parti !== parti) return false;
+        if (q) {
+          const name = `${p.prenom} ${p.nom}`.toLowerCase();
+          if (!name.includes(q)) return false;
+        }
+        if (impl === 'mis-en-cause') return p.nbAffaires > 0;
+        if (impl === 'non-mis-en-cause') return p.nbAffaires === 0;
+        return true;
+      });
+
+      if (impl === 'tous' && filtered.length > 500 && !q) {
+        filtered = filtered.slice(0, 500);
+      }
+
+      switch (sort) {
+        case 'condamnations':
+          filtered.sort((a, b) => b.nbCondamnations - a.nbCondamnations);
+          break;
+        case 'inculpations':
+          filtered.sort((a, b) => b.nbInculpations - a.nbInculpations);
+          break;
+        case 'enquetes':
+          filtered.sort((a, b) => b.nbEnquetes - a.nbEnquetes);
+          break;
+        case 'nom':
+          filtered.sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`));
+          break;
+        default:
+          filtered.sort((a, b) => b.nbAffaires - a.nbAffaires);
+      }
+
+      resultsCount.textContent = `${filtered.length} élu${filtered.length > 1 ? 's' : ''} avec affaire${filtered.length > 1 ? 's' : ''}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        grid.innerHTML = filtered.map(p => {
+          const colors = { 'LFI':'#E63946','RN':'#0D1B3E','RE':'#FFB700','LR':'#0066CC','PS':'#FF69B4','PCF':'#DD0000','EELV':'#00A95C','UDI':'#7B2D8E','REC':'#1E3A8A','NFP':'#E63946','Horizons':'#00A1D6','MoDem':'#FF8C22' };
+          const color = colors[p.parti] || '#71717A';
+          const initials = ((p.prenom?.[0] || '') + (p.nom?.[0] || '')).toUpperCase() || '?';
+          return `<a href="/politique/${p.slug}" class="card group flex flex-col overflow-hidden hover:border-zinc-300">
+            <div class="relative p-6">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-sm" style="background-color:${color}">${initials}</div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="font-semibold text-zinc-900 group-hover:text-blue-600 transition-colors truncate">${p.prenom} ${p.nom}</h3>
+                  ${p.parti ? `<span class="inline-block mt-1 px-2.5 py-0.5 text-xs font-medium rounded-full" style="background-color:${color}15;color:${color}">${p.parti}</span>` : ''}
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-zinc-50 grid grid-cols-3 gap-2">
+                <div class="text-center">
+                  <div class="text-lg font-bold ${p.nbEnquetes > 0 ? 'text-blue-600' : 'text-zinc-300'}">${p.nbEnquetes}</div>
+                  <div class="text-[10px] text-zinc-400 uppercase tracking-wide">Enquêtes</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold ${p.nbInculpations > 0 ? 'text-amber-600' : 'text-zinc-300'}">${p.nbInculpations}</div>
+                  <div class="text-[10px] text-zinc-400 uppercase tracking-wide">Mises en examen</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold ${p.nbCondamnations > 0 ? 'text-red-600' : 'text-zinc-300'}">${p.nbCondamnations}</div>
+                  <div class="text-[10px] text-zinc-400 uppercase tracking-wide">Condamn.</div>
+                </div>
+              </div>
+            </div>
+          </a>`;
+        }).join('');
+      }
+    }
+
+    updateFilters();
+    render();
+
+    searchInput.addEventListener('input', render);
+    filterParti.addEventListener('change', render);
+    filterSort.addEventListener('change', render);
+    filterImplication.addEventListener('change', render);
+  </script>
+</Layout>

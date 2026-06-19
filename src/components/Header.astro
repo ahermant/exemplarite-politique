@@ -1,0 +1,26 @@
+---
+const pages = [
+  { href: '/', label: 'Accueil' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="/" class="flex items-center gap-3 group">
+        <span class="text-2xl">&#9878;</span>
+        <span class="font-semibold text-lg tracking-tight text-zinc-900">Exemplarité politique</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        {pages.map(p => (
+          <a
+            href={p.href}
+            class="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 rounded-lg hover:bg-zinc-100 transition-colors"
+          >
+            {p.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+</header>

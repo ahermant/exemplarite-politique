@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Deputes France</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: sans-serif; }
+    .card { transition: all 0.2s; }
+    .card:hover { transform: translateY(-2px); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; }
+    .modal.active { display: flex; }
+  </style>
+</head>
+<body class="bg-gray-50 p-4">
+  <div id="app"><p>Chargement...</p></div>
+  <div id="modal" class="modal">
+    <div class="bg-white rounded-lg p-6 max-w-xl w-full m-4 max-h-[80vh] overflow-auto">
+      <div id="modal-body"></div>
+      <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-gray-200 rounded">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+var allDeputies = [];
+var convictions = {};
+
+  function parseCSV(text) {
+  // Normalize BOM on first line if present
+  var raw = text.split('\n');
+  if (raw.length > 0 && raw[0].charCodeAt(0) === 0xFEFF) raw[0] = raw[0].replace(/^\uFEFF/, '');
+  var lines = raw;
+  var headers = lines[0].split(',').map(function(h) { return h.trim().replace(/"/g, ''); });
+  return lines.slice(1).filter(function(l) { return l.trim(); }).map(function(line) {
+    var vals = [];
+    var s = '', q = false;
+    for (var i = 0; i < line.length; i++) {
+      var c = line.charAt(i);
+      if (c === '"') q = !q;
+      else if (c === ',' && !q) { vals.push(s.trim()); s = ''; }
+      else s += c;
+    }
+    vals.push(s.trim());
+    var obj = {};
+    headers.forEach(function(h, idx) { obj[h] = vals[idx] || ''; });
+    return obj;
+  });
+}
+
+async function init() {
+  try {
+    var csvText = await fetchWithBust('politiques.csv');
+    var csv = parseCSV(csvText);
+    
+    console.log('Total records:', csv.length);
+    console.log('Headers:', Object.keys(csv[0] || {}));
+    
+    var count = 0;
+  sampleDeputies = [];
+  // Normalize useful fields with a safe accessor
+  function getField(rec, ...names){
+    for (const n of names) {
+      if (rec && Object.prototype.hasOwnProperty.call(rec, n)) {
+        const v = rec[n];
+        if (v != null && v.toString().trim() !== '') return v;
+      }
+    }
+    return '';
+  }
+
+  csv.forEach(function(rec) {
+      var mandat = getField(rec, 'Mandat actuel', 'Titre du mandat', 'Mandat', 'Mandat_actuel') || '';
+      var parti = getField(rec, 'Parti (abrégé)', 'Parti abrégé', 'Parti') || '';
+      var pid = getField(rec, 'poligraphId', 'poligraphId');
+      var prenom = getField(rec, 'Prénom', 'Prenom');
+      var nom = getField(rec, 'Nom', 'Nom de famille');
+      var circ = getField(rec, 'Circonscription', 'Circonscription (code)');
+      
+      if (!parti) return;
+      // Normalize mandat to include diacritics safely
+      var m = mandat.toLowerCase();
+      // We consider anything with 'dep' as deputé (including deputé européen)
+      if (m.indexOf('dep') > -1) {
+        allDeputies.push({
+          id: pid || '',
+          prenom: prenom || '',
+          nom: nom || '',
+          parti: parti,
+          circ: circ || '',
+          mandato: mandat,
+          position: (getField(rec, 'Position politique') || '')
+        });
+        count++;
+      }
+  });
+    // Capture sample deputies if present
+    sampleDeputies = [];
+    var manon = allDeputies.find(function(d){ return d.prenom && d.nom && d.prenom.toLowerCase() === 'manon' && d.nom.toLowerCase() === 'aubry'; });
+    if (manon) sampleDeputies.push({ name: manon.prenom + ' ' + manon.nom, party: manon.parti });
+    var jordan = allDeputies.find(function(d){ return d.prenom && d.nom && d.prenom.toLowerCase() === 'jordan' && d.nom.toLowerCase() === 'bardella'; });
+    if (jordan) sampleDeputies.push({ name: jordan.prenom + ' ' + jordan.nom, party: jordan.parti });
+    console.log('samples:', sampleDeputies.map(s => s.name).join(', '));
+    // If no deputies loaded due to strict mandat filter, perform a fallback load by Parti presence
+    if (count === 0) {
+      csv.forEach(function(rec) {
+        var pid = getField(rec, 'poligraphId', 'poligraphId politique');
+        var prenom = getField(rec, 'Prénom', 'Prenom');
+        var nom = getField(rec, 'Nom', 'Nom de famille');
+        var parti = getField(rec, 'Parti (abrégé)', 'Parti abrégé', 'Parti');
+        var circ = getField(rec, 'Circonscription', 'Circonscription (code)');
+        var mandatSimple = getField(rec, 'Mandat actuel', 'Titre du mandat');
+        if (parti && prenom && nom) {
+          allDeputies.push({ id: pid || '', prenom: prenom, nom: nom, parti: parti, circ: circ || '', mandato: mandatSimple || '' , position: '' });
+          count++;
+        }
+      });
+      console.log('Fallback loaded deputies:', count);
+    } else {
+      console.log('Loaded:', count, 'deputies');
+    }
+    
+    var affText = await fetchWithBust('affaires.csv');
+    var aff = parseCSV(affText);
+    aff.forEach(function(a) {
+      var pid = a['poligraphId politique'];
+      if (pid) {
+        if (!convictions[pid]) convictions[pid] = [];
+        convictions[pid].push({
+          titre: a['Titre'] || '',
+          statut: a['Statut (code)'] || '',
+          cat: a['Catégorie (code)'] || '',
+          desc: a['Description'] || '',
+          peine: a['Peine (texte libre)'] || ''
+        });
+      }
+    });
+    console.log('Affaires:', Object.keys(convictions).length);
+    draw();
+  } catch(e) {
+    console.error(e);
+    document.getElementById('app').innerHTML = '<p class="text-red-500">Erreur: ' + e + '</p>';
+  }
+}
+
+  function color(p) {
+  var c = { LFI:'purple', RE:'yellow', LR:'blue', PS:'pink', RN:'indigo', PCF:'red', Horizons:'cyan', MoDem:'orange', EELV:'green' };
+  return c[p] || 'gray';
+}
+
+// Robust mandat normalization (strip diacritics, ASCII, lowercase)
+function normalizeMandat(m) {
+  if (!m) return '';
+  if (typeof m.normalize === 'function') {
+    return m.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+  return String(m).toLowerCase();
+}
+
+async function fetchWithBust(url){
+  const urlCb = url.includes('?') ? url + '&cb=' + Date.now() : url + '?cb=' + Date.now();
+  let resp = await fetch(urlCb);
+  let text = await resp.text();
+  if (!text || text.trim().length < 20){
+    let resp2 = await fetch(url);
+    text = await resp2.text();
+  }
+  return text;
+}
+
+function stats() {
+  var s = {};
+  allDeputies.forEach(function(d) {
+    var p = d.parti || 'N/A';
+    if (!s[p]) s[p] = { t: 0, c: 0 };
+    s[p].t++;
+    if (convictions[d.id] && convictions[d.id].some(function(a) { return a.statut === 'CONDAMNATION_DEFINITIVE'; })) s[p].c++;
+  });
+  return Object.keys(s).sort(function(a, b) { return s[b].t - s[a].t; }).map(function(k) { return { party: k, total: s[k].t, convict: s[k].c }; });
+}
+
+function renderSamplesHTML() {
+  if (!sampleDeputies || sampleDeputies.length === 0) return '';
+  return '<div class="bg-yellow-50 border border-yellow-100 p-3 rounded mb-4">Exemples: ' + sampleDeputies.map(function(s){ return s.name + ' (' + (s.party || '') + ')'; }).join(', ') + '</div>';
+}
+
+function draw() {
+  var st = stats();
+  var partyOpts = '<option value="">Tous partis</option>';
+  st.forEach(function(x) { partyOpts += '<option value="' + x.party + '">' + x.party + '</option>'; });
+  
+  document.getElementById('app').innerHTML = '<h1 class="text-3xl font-bold mb-2">Deputes France</h1>' +
+    renderSamplesHTML() +
+    '<div class="mt-2"><button id="runTests" class="px-3 py-1 bg-blue-500 text-white rounded">Run Tests</button></div>' +
+    '<div id="test-results" class="mt-2 text-sm text-gray-700"></div>' +
+    '<p class="mb-4 text-gray-500">' + allDeputies.length + ' depute(e)s</p>' +
+    '<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">' +
+    st.map(function(x) { return '<div class="bg-white p-3 rounded shadow"><div class="text-xs text-gray-500">' + x.party + '</div><div class="text-xl font-bold">' + x.total + '</div><div class="text-xs ' + (x.convict > 0 ? 'text-red-600' : 'text-green-600') + '">' + x.convict + '</div></div>'; }).join('') +
+    '</div>' +
+    '<div class="bg-white p-4 rounded shadow mb-6 flex flex-wrap gap-4">' +
+    '<input id="s" placeholder="Rechercher..." class="border p-2 rounded">' +
+    '<select id="t" class="border p-2 rounded"><option value="">Tous</option><option value="AN">Députés AN</option><option value="UE">Députés UE</option></select>' +
+    '<select id="p" class="border p-2 rounded">' + partyOpts + '</select>' +
+    '<label><input type="checkbox" id="f"> Condamnes</label>' +
+    '</div>' +
+    '<div id="list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>';
+  
+  document.getElementById('s').addEventListener('input', render);
+  document.getElementById('t').addEventListener('change', render);
+  document.getElementById('p').addEventListener('change', render);
+  document.getElementById('f').addEventListener('change', render);
+  render();
+  // Wire test button if present
+  setTimeout(function(){ var b = document.getElementById('runTests'); if (b) b.addEventListener('click', runTests); }, 0);
+}
+
+function render() {
+  var q = document.getElementById('s').value.toLowerCase();
+  var type = document.getElementById('t').value;
+  var party = document.getElementById('p').value;
+  var convictOnly = document.getElementById('f').checked;
+
+  var list = [];
+  for (var i = 0; i < allDeputies.length; i++) {
+    var d = allDeputies[i];
+    var hasC = convictions[d.id] && convictions[d.id].some(function(a) { return a.statut === 'CONDAMNATION_DEFINITIVE'; });
+    if (convictOnly && !hasC) continue;
+    if (q && ((d.prenom + ' ' + d.nom).toLowerCase().indexOf(q) === -1)) continue;
+    if (party && d.parti !== party) continue;
+    // Note: Use "Mandat actuel" to filter AN vs Europe
+    if (type === 'AN' && (d.position || '').toLowerCase().indexOf('europeen') > -1) continue;
+    if (type === 'UE' && (d.position || '').toLowerCase().indexOf('europeen') === -1) continue;
+    list.push(d);
+    if (list.length >= 400) break;
+  }
+  
+  document.getElementById('list').innerHTML = list.length === 0 ? '<p class="col-span-4 text-center py-12 text-gray-500">Aucun resultat</p>' :
+    list.map(function(d) {
+      var cid = d.id;
+      var cnt = (convictions[cid] || []).filter(function(a) { return a.statut === 'CONDAMNATION_DEFINITIVE'; }).length;
+      return '<div class="card bg-white rounded shadow overflow-hidden">' +
+        '<div class="h-24 bg-' + color(d.parti) + '-600 flex justify-center"><div class="w-20 h-20 rounded-full border-4 border-white bg-gray-300 -mb-10 text-white font-bold text-2xl flex items-center justify-center">' + (d.prenom.charAt(0) || '?') + '</div></div>' +
+        '<div class="p-4 pt-12"><h3 class="font-semibold">' + d.prenom + ' ' + d.nom + '</h3>' +
+        '<span class="inline-block px-2 py-1 bg-' + color(d.parti) + '-600 text-white text-xs rounded mb-2">' + d.parti + '</span>' +
+        '<div class="text-xs text-gray-500 mb-2">' + d.circ + '</div>' +
+        (cnt > 0 ? '<div onclick="show(\'' + cid + '\')" class="cursor-pointer mt-2 p-2 bg-red-50 border border-red-100 rounded text-center text-red-600">(Cliquer) ' + cnt + ' condem.</div>' :
+          '<div class="mt-2 p-2 bg-green-50 border border-green-100 rounded text-center text-green-600">0 condamnation</div>') +
+        '</div></div>';
+    }).join('');
+}
+
+function runTests() {
+  const resDiv = document.getElementById('test-results');
+  const manon = allDeputies.find(d => (d.prenom||'').toLowerCase() === 'manon' && (d.nom||'').toLowerCase() === 'aubry');
+  const jordan = allDeputies.find(d => (d.prenom||'').toLowerCase() === 'jordan' && (d.nom||'').toLowerCase() === 'bardella');
+  let out = [];
+  if (manon) out.push('Manon Aubry: '+ (manon.parti||'inconnu')) ; else out.push('Manon Aubry: non trouve');
+  if (jordan) out.push('Jordan Bardella: '+ (jordan.parti||'inconnu')) ; else out.push('Jordan Bardella: non trouve');
+  resDiv.innerHTML = '<strong>Test results</strong><br/>' + out.map(x => '- ' + x).join('<br/>');
+}
+
+function show(pid) {
+  var a = convictions[pid] || [];
+  var def = a.filter(function(x) { return x.statut === 'CONDAMNATION_DEFINITIVE'; });
+  document.getElementById('modal-body').innerHTML = def.length === 0 ? '<p>Aucune.</p>' :
+    def.map(function(x) { return '<div class="mb-3 p-3 bg-red-50 rounded"><strong>' + (x.titre || 'Condamnation') + '</strong><p>' + x.cat + '</p><p>' + x.desc + '</p><p class="text-sm text-gray-500">Peine: ' + x.peine + '</p></div>'; }).join('');
+  document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+window.show = show; window.closeModal = closeModal;
+init();
+  </script>
+</body>
+</html>

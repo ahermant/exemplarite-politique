@@ -1,0 +1,34 @@
+---
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title ? `${title} — Exemplarité politique` : 'Exemplarité politique — Suivi des affaires des élus français';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description || 'Suivi citoyen des enquêtes, mises en examen et condamnations des élus français en activité.'} />
+    <title>{fullTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      html { font-family: 'Inter', system-ui, sans-serif; }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
