@@ -100,7 +100,7 @@ const searchIndex = tousLesPoliticiens
     </section>
   </main>
 
-  <script define:vars={{ searchIndex, baseUrl: (import.meta.env.BASE_URL || '/') }}>
+  <script define:vars={{ searchIndex, base: (import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL) }}>
     const grid = document.getElementById('grid');
     const noResults = document.getElementById('no-results');
     const resultsCount = document.getElementById('results-count');
@@ -183,7 +183,7 @@ const searchIndex = tousLesPoliticiens
           const colors = { 'LFI':'#E63946','RN':'#0D1B3E','RE':'#FFB700','LR':'#0066CC','PS':'#FF69B4','PCF':'#DD0000','EELV':'#00A95C','UDI':'#7B2D8E','REC':'#1E3A8A','NFP':'#E63946','Horizons':'#00A1D6','MoDem':'#FF8C22' };
           const color = colors[p.parti] || '#71717A';
           const initials = ((p.prenom?.[0] || '') + (p.nom?.[0] || '')).toUpperCase() || '?';
-          return `<a href="${baseUrl}politique/${p.slug}" class="card group flex flex-col overflow-hidden hover:border-zinc-300">
+          return `<a href="${base}/politique/${p.slug}" class="card group flex flex-col overflow-hidden hover:border-zinc-300">
             <div class="relative p-6">
               <div class="flex items-start gap-4">
                 <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-sm" style="background-color:${color}">${initials}</div>
