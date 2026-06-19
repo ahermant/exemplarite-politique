@@ -1,13 +1,14 @@
 ---
+const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
 const pages = [
-  { href: '/', label: 'Accueil' },
+  { href: `${base}/`, label: 'Accueil' },
 ];
 ---
 
 <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      <a href="/" class="flex items-center gap-3 group">
+      <a href={`${base}/`} class="flex items-center gap-3 group">
         <span class="text-2xl">&#9878;</span>
         <span class="font-semibold text-lg tracking-tight text-zinc-900">Exemplarité politique</span>
       </a>

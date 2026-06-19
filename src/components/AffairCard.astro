@@ -6,11 +6,12 @@ interface Props {
   affaire: AffaireResume;
 }
 
+const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
 const { affaire: a } = Astro.props;
 const variantClass = getStatutVariant(a.statutCode);
 ---
 
-<a href={`/affaire/${a.slug}`} class="affaire-card block p-5 group">
+<a href={`${base}/affaire/${a.slug}`} class="affaire-card block p-5 group">
   <div class="flex items-start justify-between gap-3 mb-2">
     <h4 class="font-medium text-sm text-zinc-900 group-hover:text-blue-600 transition-colors leading-snug">
       {a.titre || 'Affaire sans titre'}
