@@ -9,7 +9,7 @@
     "convert": "node scripts/convert-csv-to-json.js",
     "fetch": "node scripts/fetch-data.js",
     "test": "node scripts/test.js",
-    "refresh": "npm run fetch && npm run convert && npm test && npm run build"
+    "refresh": "npm run fetch && node scripts/build-candidats.js && npm run convert && npm test && npm run build"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",

@@ -57,6 +57,10 @@ async function main() {
     console.log('No remote URL for candidats.csv, using local file.');
   }
 
+  // Sync orphans into candidats.csv
+  console.log('Syncing candidats...');
+  execSync('node scripts/build-candidats.js', { cwd: root, stdio: 'inherit' });
+
   // Run conversion script
   console.log('Running CSV to JSON conversion...');
   execSync('node scripts/convert-csv-to-json.js', { cwd: root, stdio: 'inherit' });
