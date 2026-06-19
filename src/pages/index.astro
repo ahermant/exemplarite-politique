@@ -10,7 +10,7 @@ const tousLesPoliticiens = getPoliticiens();
 const partis = getTousLesPartis();
 
 const politiciensAvecAffaires = tousLesPoliticiens
-  .filter(p => p.parti).sort((a, b) => b.nbAffaires - a.nbAffaires).slice(0, 100);
+  .filter(p => p.parti).sort((a, b) => (b.nbEnquetes + b.nbInculpations + b.nbCondamnations) - (a.nbEnquetes + a.nbInculpations + a.nbCondamnations)).slice(0, 100);
 
 const searchIndex = tousLesPoliticiens
   .filter(p => p.parti)
@@ -21,6 +21,7 @@ const searchIndex = tousLesPoliticiens
     nom: p.nom,
     parti: p.parti,
     nbAffaires: p.nbAffaires,
+    nbActives: p.nbEnquetes + p.nbInculpations + p.nbCondamnations,
     nbEnquetes: p.nbEnquetes,
     nbInculpations: p.nbInculpations,
     nbCondamnations: p.nbCondamnations,
@@ -169,7 +170,7 @@ const searchIndex = tousLesPoliticiens
           filtered.sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`));
           break;
         default:
-          filtered.sort((a, b) => b.nbAffaires - a.nbAffaires);
+          filtered.sort((a, b) => b.nbActives - a.nbActives);
       }
 
       resultsCount.textContent = `${filtered.length} élu${filtered.length > 1 ? 's' : ''} avec affaire${filtered.length > 1 ? 's' : ''}`;
