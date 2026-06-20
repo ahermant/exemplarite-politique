@@ -4,6 +4,5 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [tailwind()],
   output: 'static',
-  site: 'https://ahermant.github.io',
-  base: '/exemplarite-politique'
+  site: 'https://exemplarite-politique.pages.dev',
 });

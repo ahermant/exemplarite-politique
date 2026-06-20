@@ -127,7 +127,7 @@ import { existsSync, readFileSync as rfs } from 'fs';
 const distIndex = resolve(root, 'dist', 'index.html');
 if (existsSync(distIndex)) {
   const html = rfs(distIndex, 'utf-8');
-  assert('index.html contient "Exemplarité politique"', html.includes('Exemplarité politique'));
+  assert('index.html contient "Veille citoyenne"', html.includes('Veille citoyenne'));
   assert('index.html contient des cartes élu', html.includes('card') && html.includes('font-semibold'));
 
   for (const p of politiciensAvecAffaires.slice(0, 5)) {

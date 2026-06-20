@@ -1,4 +1,4 @@
-# Exemplarité politique
+# Veille citoyenne
 
 Suivi citoyen des enquêtes, mises en examen et condamnations des élus français en activité. Un outil de transparence démocratique basé sur les données publiques.
 
