@@ -147,7 +147,7 @@ const searchIndex = tousLesPoliticiens
           const name = `${p.prenom} ${p.nom}`.toLowerCase();
           if (!name.includes(q)) return false;
         }
-        if (impl === 'tous') return p.nbAffaires > 0;
+        if (impl === 'mis-en-cause') return p.nbAffaires > 0;
         if (impl === 'non-mis-en-cause') return p.nbAffaires === 0;
         return true;
       });
@@ -170,7 +170,11 @@ const searchIndex = tousLesPoliticiens
           filtered.sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`));
           break;
         default:
-          filtered.sort((a, b) => b.nbActives - a.nbActives);
+          if (impl === 'tous' && !q && !parti && sort === 'affaires') {
+            filtered.sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`));
+          } else {
+            filtered.sort((a, b) => b.nbActives - a.nbActives);
+          }
       }
 
       resultsCount.textContent = `${filtered.length} élu${filtered.length > 1 ? 's' : ''} avec affaire${filtered.length > 1 ? 's' : ''}`;
