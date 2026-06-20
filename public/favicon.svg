@@ -1,4 +1,5 @@
- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <g transform="translate(50,45)" stroke="#18181b" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <line x1="0" y1="-20" x2="0" y2="18"/>
     <line x1="-32" y1="-20" x2="32" y2="-20"/>
