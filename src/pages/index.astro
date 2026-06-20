@@ -10,7 +10,8 @@ const tousLesPoliticiens = getPoliticiens();
 const partis = getTousLesPartis();
 
 const politiciensAvecAffaires = tousLesPoliticiens
-  .filter(p => p.parti).sort((a, b) => (b.nbEnquetes + b.nbInculpations + b.nbCondamnations) - (a.nbEnquetes + a.nbInculpations + a.nbCondamnations)).slice(0, 100);
+  .filter(p => p.parti && p.nbAffaires > 0)
+  .sort((a, b) => (b.nbEnquetes + b.nbInculpations + b.nbCondamnations) - (a.nbEnquetes + a.nbInculpations + a.nbCondamnations));
 
 const searchIndex = tousLesPoliticiens
   .filter(p => p.parti)
@@ -79,9 +80,9 @@ const searchIndex = tousLesPoliticiens
             <option value="nom">Ordre alphabétique</option>
           </select>
           <select id="filter-implication" class="select sm:w-48">
-            <option value="tous">Tous les élus</option>
             <option value="mis-en-cause">Mis en cause</option>
             <option value="non-mis-en-cause">Non mis en cause</option>
+            <option value="tous">Tous les élus</option>
           </select>
         </div>
       </div>
@@ -112,7 +113,7 @@ const searchIndex = tousLesPoliticiens
 
     function getParams() {
       const p = new URLSearchParams(location.search);
-      return { q: p.get('q') || '', parti: p.get('parti') || '', sort: p.get('sort') || 'affaires', impl: p.get('impl') || 'tous' };
+      return { q: p.get('q') || '', parti: p.get('parti') || '', sort: p.get('sort') || 'affaires', impl: p.get('impl') || 'mis-en-cause' };
     }
 
     function setParams(q, parti, sort, impl) {
@@ -120,7 +121,7 @@ const searchIndex = tousLesPoliticiens
       if (q) p.set('q', q);
       if (parti) p.set('parti', parti);
       if (sort && sort !== 'affaires') p.set('sort', sort);
-      if (impl && impl !== 'tous') p.set('impl', impl);
+      if (impl && impl !== 'mis-en-cause') p.set('impl', impl);
       const url = p.toString() ? '?' + p.toString() : location.pathname;
       history.replaceState(null, '', url);
     }
