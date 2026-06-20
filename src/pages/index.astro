@@ -90,7 +90,7 @@ const searchIndex = tousLesPoliticiens
     <!-- Results -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div id="results-count" class="mb-4 text-sm text-zinc-500">
-        {politiciensAvecAffaires.length} élu{politiciensAvecAffaires.length > 1 ? 's' : ''} avec affaire{politiciensAvecAffaires.length > 1 ? 's' : ''}
+        {politiciensAvecAffaires.length} élu{politiciensAvecAffaires.length > 1 ? 's' : ''}
       </div>
       <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {politiciensAvecAffaires.map(p => <PoliticianCard politicien={p} />)}
@@ -170,14 +170,11 @@ const searchIndex = tousLesPoliticiens
           filtered.sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`));
           break;
         default:
-          if (impl === 'tous' && !q && !parti && sort === 'affaires') {
-            filtered.sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`));
-          } else {
-            filtered.sort((a, b) => b.nbActives - a.nbActives);
-          }
+          filtered.sort((a, b) => b.nbActives - a.nbActives);
       }
 
-      resultsCount.textContent = `${filtered.length} élu${filtered.length > 1 ? 's' : ''} avec affaire${filtered.length > 1 ? 's' : ''}`;
+      const suffix = impl === 'mis-en-cause' ? ' mis en cause' : impl === 'non-mis-en-cause' ? ' non mis en cause' : '';
+      resultsCount.textContent = `${filtered.length} élu${filtered.length > 1 ? 's' : ''}${suffix}`;
 
       if (filtered.length === 0) {
         grid.innerHTML = '';
